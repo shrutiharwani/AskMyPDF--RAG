@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with PDF - Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body class="center-body">
+
+<div class="glass-card home-box">
+    <div class="icon-circle">
+        <span class="material-icons-round">description</span>
+    </div>
+    <h1>Chat with PDF</h1>
+    <p class="subtitle">Upload your document and let AI answer your questions.</p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+        <label for="file-upload" class="custom-file-upload">
+            <span class="material-icons-round">cloud_upload</span> Choose PDF
+        </label>
+        <input id="file-upload" type="file" name="pdf" accept=".pdf" required onchange="updateFileName(this)"/>
+        
+        <div id="file-name" class="file-name-display">No file chosen</div>
+
+        <button type="submit" class="primary-btn">
+            Start Chatting <span class="material-icons-round" style="font-size: 18px; margin-left: 5px;">arrow_forward</span>
+        </button>
+    </form>
+</div>
+
+<script>
+    // Simple script to show the selected file name
+    function updateFileName(input) {
+        const fileName = input.files[0] ? input.files[0].name : "No file chosen";
+        document.getElementById('file-name').textContent = fileName;
+        document.getElementById('file-name').classList.add('active');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with PDF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="chat-header">
+        <div class="header-info">
+            <span class="material-icons-round icon">smart_toy</span>
+            <div class="title-text">
+                Chat with PDF
+                <span class="status-dot"></span>
+            </div>
+        </div>
+        <button class="clear-btn" onclick="clearHistory()" title="Clear History">
+            <span class="material-icons-round">delete_outline</span>
+        </button>
+    </div>
+
+    <div id="chat-box">
+        {% if history|length == 0 %}
+            <div class="empty-state">
+                <span class="material-icons-round">chat_bubble_outline</span>
+                <p>Hello! Ask me anything about your PDF.</p>
+            </div>
+        {% endif %}
+
+        {% for item in history %}
+            <div class="message user">{{ item.question }}</div>
+            <div class="message bot">{{ item.answer | safe }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="input-area">
+        <input
+            id="chat-input"
+            type="text"
+            placeholder="Type your question here..."
+            autocomplete="off"
+        />
+        <button id="send-btn">
+            <span class="material-icons-round">send</span>
+        </button>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
